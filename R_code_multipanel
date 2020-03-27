@@ -1,0 +1,39 @@
+### Multipanel in R: second lecture of Monytoring ecosystems
+# we'll use the install package
+install.packages("sp")
+install.packages("GGally")
+
+library(sp) # require(sp) will also do the job
+
+data(meuse) #there is a dataset available named meuse
+
+attach(meuse)
+
+#Excercise: see the names of the variables and plot cadmium versus zinc  
+#there are two ways to see the names of the variables
+names(meuse)
+head(meuse)
+plot(cadmium,zinc,pch=15,col="red",cex=2)
+
+#exercise: make all the possible paiwis plots of the dataset
+#plot(x,cadmium)
+#plot(x,zinc)
+#plot(...)
+#plot is not a good idea!
+pairs(meuse)
+#with the last fn, we did a MULTIPANEL 
+
+
+pairs(~ cadmium + copper + lead + zinc, data=meuse) 
+
+pairs(meuse[,3:6])
+
+#exercise: prettify this graph 
+pairs(meuse[,3:6],pch=12,col="green",cex=1.5)
+
+#EFFETTO SORPRESA PER STUPIRE DADANNNN--> vai alla quarta riga GGally
+
+#GGally package will prettified the graph 
+
+library(GGally)
+ggpairs(meuse[,3:6]) #it's going to be a pairs but by using ggally
