@@ -19,3 +19,15 @@ spplot(meuse, "copper", main="Copper concentration")
 
 # exercise: bubble copper in red 
 bubble(meuse, "copper", main="Copper concentrtion"), col="red")
+
+
+#### importing new data
+
+# download covid_agg.csv from our teaching site and build a folder called lab into dataC
+#put the covid_agg.csv file into the folder lab
+
+# setting the working directory: lab
+# Mac users
+setwd("/Users/yourname/lab/")
+
+covid <- read.table("covid_agg.csv", head=TRUE)
