@@ -40,12 +40,12 @@ bubble(meuse, "copper", main="Cppoer concentration", col="red")
 
 
 # setting the working directory: lab
-# Windows
-# setwd("C:/lab/")
+# Windows: setwd("C:/lab/")
+
 # Mac users
-# setwd("/Users/yourname/lab/")
-# Linux users
-setwd("~/lab")
+setwd("/Users/Sofiaprandelli/lab/")
+
+# Linux users: setwd("~/lab")
 
  
 
