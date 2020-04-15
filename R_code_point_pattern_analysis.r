@@ -7,7 +7,7 @@ attach(covid)
 head(covid)
 
 # give a name to the object we are goingo to prepare
-covids <-ppp(lon,lat,c(-180,180), c(-90,90))  
+covids <- ppp(lon,lat,c(-180,180), c(-90,90))  
 # ppp(x,y, range of longiture, range of latitude) -> point pattern dataset in the two-dimensional plane
 
 # without attaching the covid set
