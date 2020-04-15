@@ -31,7 +31,7 @@ pairs(meuse[,3:6])
 #exercise: prettify this graph 
 pairs(meuse[,3:6],pch=12,col="green",cex=1.5)
 
-#EFFETTO SORPRESA PER STUPIRE DADANNNN--> vai alla quarta riga GGally
+#SURPRISEEE--> vai alla quarta riga: GGally
 
 #GGally package will prettified the graph 
 
