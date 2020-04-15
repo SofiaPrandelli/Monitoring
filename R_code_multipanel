@@ -1,39 +1,52 @@
 ### Multipanel in R: second lecture of Monytoring ecosystems
 # we'll use the install package
 install.packages("sp")
-install.packages("GGally")
+install.packages("GGally") #this is used for the function ggpairs()
 
-library(sp) # require(sp) will also do the job
+library(sp)    # require(sp) will also do the job
+library(GGally) # used for the other packages installed 
+
 
 data(meuse) #there is a dataset available named meuse
-
 attach(meuse)
 
-#Excercise: see the names of the variables and plot cadmium versus zinc  
-#there are two ways to see the names of the variables
+# Excercise: see the names of the variables and plot cadmium versus zinc  
+# there are two ways to see the names of the variable:
+
+# first one: 
 names(meuse)
+
+# second one: 
 head(meuse)
 plot(cadmium,zinc,pch=15,col="red",cex=2)
 
-#exercise: make all the possible paiwis plots of the dataset
+#EXCERCISE: make all the possible pairwise plots of the dataset
+
 #plot(x,cadmium)
 #plot(x,zinc)
 #plot(...)
-#plot is not a good idea!
-pairs(meuse)
-#with the last fn, we did a MULTIPANEL 
+#plot is not a good idea! so we use: 
 
+pairs(meuse)
+# with the last fn, we did a MULTIPANEL, that are all the graphs in one figure 
+# in case you receive the error "the size is too large", you have to reshape with the mouse the graph window
 
 pairs(~ cadmium + copper + lead + zinc, data=meuse) 
 
+# grouping variabiles 
+# ~ called tilde --> blocnum alt+126
+# comma separates different arguments
+
 pairs(meuse[,3:6])
 
-#exercise: prettify this graph 
+#EXERCISE: prettify this graph 
 pairs(meuse[,3:6],pch=12,col="green",cex=1.5)
 
-#SURPRISEEE--> vai alla quarta riga: GGally
+#SURPRISEEE--> go up at the beginning of the code and istall another package
+#GGally package will prettify the graph
+#install the package and use the library(GGally)
 
-#GGally package will prettified the graph 
 
-library(GGally)
-ggpairs(meuse[,3:6]) #it's going to be a pairs but by using ggally
+ggpairs(meuse[,3:6]) # it's going to be a pairs but by using ggally
+                     # reading of the graph: cadium and copper have very high correlation (0<correlation<1)
+
