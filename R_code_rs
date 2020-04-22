@@ -1,0 +1,83 @@
+# Codice R PER ANALISI DI IMMAGINI SATELLITARI 
+# R code remote sensing: remote sensing permits us to see new things into landscape, planets, 
+#                        than our eyes can't see
+
+setwd("/Users/sofiaprandelli/lab")
+install.packages("raster")
+library(raster)
+
+#importiamo l'immagine in R
+p224r63_2011 <- brick("p224r63_2011_masked.grd") #la parte iniziale è il nome che diamo all'immagine
+plot(p224r63_2011) #grafico
+
+#let's change the color palette: first, introduce the color "cl"
+cl <- colorRampPalette(c('black','grey','light grey'))(100)
+
+#EXERCISE: plot the image with the new color ramp palette
+plot(p224r63_2011, col=cl)
+
+#let's make a different plot of the image: in order to make a multiframe of different plots --> fn par()
+par(mfrow=c(2,2)) # 2x2=4 images
+
+#first image
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100)
+plot(p224r63_2011$B1_sre, col=clb)      #dollar $ to LINK different parts: in this case to link the bands
+
+#just do the same for the green band B2_sre
+clg <- colorRampPalette(c('dark green','green','light green'))(100)
+plot(p224r63_2011$B2_sre, col=clg)
+
+#now red band: B3 RED
+clr <- colorRampPalette(c('dark red','red','pink'))(100)
+plot(p224r63_2011$B3_sre, col=clr)
+
+#B4 Near Infra Red= NIR
+clr <- colorRampPalette(c('red','orange','yellow'))(100)
+plot(p224r63_2011$B4_sre, col=clr)
+
+#cambiamo la disposizione delle immagini e mettiamole in un'unica colonna
+
+par(mfrow=c(4,1))
+# B1: blue
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) 
+plot(p224r63_2011$B1_sre, col=clb)
+
+
+# B2 green
+# Exercise: do the same for the green band B2_sre
+clg <- colorRampPalette(c('dark green','green','light green'))(100) 
+plot(p224r63_2011$B2_sre, col=clg)
+
+
+# B3 red
+clr <- colorRampPalette(c('dark red','red','pink'))(100) 
+plot(p224r63_2011$B3_sre, col=clr)
+
+
+# B4 NIR
+cln <- colorRampPalette(c('red','orange','yellow'))(100) 
+plot(p224r63_2011$B4_sre, col=cln)
+
+#plotRGB : association between the 3 components (red blue and green) 
+#          and exacting linearly stretching the colors
+
+#band of Landsat
+#B1: blue
+#B2: green
+#B3:red
+#B4:NIR
+
+dev.off() #serve per chiudere i grafici precedenti
+
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+
+#now we change the components in NIR, red, green --> vegetation is becoming red (forest is really red) 
+#     white and grey parts are the opened areas --> forest in danger by human ctivity 
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") 
+
+#EXERCISE: NIR on top of the RGB (Band number 4) 
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin") #it can also measure the humidity in the forest, 
+#this combination allows to see differences between main vegetation and nude soil (agricoltural fields)
+#                    (we have put the near IR into the green component)
+
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin") 
