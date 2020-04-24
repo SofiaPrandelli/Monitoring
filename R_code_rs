@@ -23,11 +23,11 @@ par(mfrow=c(2,2)) # 2x2=4 images
 clb <- colorRampPalette(c('dark blue','blue','light blue'))(100)
 plot(p224r63_2011$B1_sre, col=clb)      #dollar $ to LINK different parts: in this case to link the bands
 
-#just do the same for the green band B2_sre
+# just do the same for the green band B2_sre
 clg <- colorRampPalette(c('dark green','green','light green'))(100)
 plot(p224r63_2011$B2_sre, col=clg)
 
-#now red band: B3 RED
+# now red band: B3 RED
 clr <- colorRampPalette(c('dark red','red','pink'))(100)
 plot(p224r63_2011$B3_sre, col=clr)
 
@@ -35,7 +35,7 @@ plot(p224r63_2011$B3_sre, col=clr)
 clr <- colorRampPalette(c('red','orange','yellow'))(100)
 plot(p224r63_2011$B4_sre, col=clr)
 
-#cambiamo la disposizione delle immagini e mettiamole in un'unica colonna
+# cambiamo la disposizione delle immagini e mettiamole in un'unica colonna
 
 par(mfrow=c(4,1))
 # B1: blue
@@ -77,7 +77,98 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 
 #EXERCISE: NIR on top of the RGB (Band number 4) 
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin") #it can also measure the humidity in the forest, 
-#this combination allows to see differences between main vegetation and nude soil (agricoltural fields)
+# this combination allows to see differences between main vegetation and nude soil (agricoltural fields)
 #                    (we have put the near IR into the green component)
 
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin") 
+
+
+#################
+
+
+setwd("/Users/sofiaprandelli/lab")
+
+load("rs.RData")
+ls()  # to have a list of all these data into this set
+
+library(raster)
+p224r63_1988 <- brick("p224r63_1988_masked.grd")     # DIFFERENT IMAGE FROM THE LAST EXCERCISE 
+
+plot(p224r63_1988)
+
+
+# plotRGB
+#band of Landsat
+#B1: blue
+#B2: green
+#B3:red
+#B4:NIR
+
+# EXERCISE: plot in visible RGB 321 both images (1988 and 2011)
+par(mfrow=c(2,1))
+
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") # STRETCHING THE DATA: we'll have small changing in the colors..more colors? 
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
+
+# EXERCISE: plot in false color RGB 432 both images
+
+par(mfrow=c(2,1))
+
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+
+
+# enhace the noise of the images!
+par(mfrow=c(2,1))
+
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+
+
+# plotRGB
+#band of Landsat
+#B1: blue
+#B2: green
+#B3:red: b3_sre
+#B4:NIR: b4_sre
+
+dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre
+cl <- colorRampPalette(c('"yellow"','light blue','lightpink4'))(100) 
+plot(dvi2011)
+
+
+dvi2011 <- p224r63_2011$B4_sre - p224r63_2011$B3_sre
+cl <- colorRampPalette(c('darkorchid3','light blue','lightpink4'))(100) 
+plot(dvi2011,col=cl)
+
+
+#EXERCISE: dvi for 1988
+dvi1988 <- p224r63_1988$B4_sre - p224r63_1988$B3_sre
+cl <- colorRampPalette(c('darkorchid3','light blue','lightpink4'))(100) 
+plot(dvi1988,col=cl)
+
+
+ # DIFFERENCE BETWEEN DVI 1988 AND DVI 2011
+diff <- dvi2011 - dvi1988
+plot(diff)
+
+# changing the grain of the image!
+# resampling
+p224r63_2011res <- aggregate(p224r63_2011, fact=10)
+p224r63_2011res100 <- aggregate(p224r63_2011, fact=100)
+ 
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011res, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011res100, r=4, g=3, b=2, stretch="Lin")
+
+p224r63_2011 # per vedere tutte le caratteristiche di un'immagine: es. riga 3--> risoluzione 30metriX30metri
+#capire cosa è utile e cosa no dal punto di vista ecologico
+# la risoluzione può essere anche data da un problema economico 
+# spostamento di una popolazione--> very high resolution data
+# monitoring forest changes and not instereste in small changes --> medium resolution data
+# global changes analysis --> pixel of 1 km can be good 
+# high amount of datas can produce a lot of noise, so high resolution is not always useful!
+
+
+
