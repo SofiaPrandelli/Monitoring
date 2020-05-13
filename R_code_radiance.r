@@ -42,25 +42,3 @@ text(toy4bits, digits=2)
 
 plot(toy8bits)
 text(toy8bits, digits=2)
-
-############################################ day2
-
-#now we import the FILE FAPAR10
-
-setwd("/users/sofiaprandelli/lab")
-load("faPAR.RData")
-library(raster)
-library(rasterdiv)
-library (rasterVis)
-
-# THE ORIGINAL faPAR from Copernicus is 2GB
-#lets see how much space is needed for an 8-bit set
-
-#let's write a rasterfile outside R
-
-
-writeRaster(copNDVI, "copNDVI.tif")
-# 5.3 MB 
-
-# EXERCISE: make the level plot of the faPAR
-levelplot(faPAR10) #faPAR = fraction of the solar radiation absorbed by live leaves 
