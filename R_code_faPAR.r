@@ -54,3 +54,64 @@ writeRaster( copNDVI, "copNDVI.tif")
 # to make the level plot of the faPAR
 levelplot(faPAR10) #faPAR = fraction of the solar radiation absorbed by live leaves 
 
+##### regression model between faPAR and NDVI : relationship between the 2 variables
+erosion <- c(12, 14, 16, 24, 26, 40, 50, 67) #example of values of erosion in a certain area
+hm <- c(30, 100, 150, 200, 260, 340, 460, 600) #heavy metals in this area
+# now we do a plot between EROSION AND HEAVY METALS
+
+plot(erosion, hm, col="red", pch=19, xlab="erosion", ylab="heavy metals")
+
+# HOW MUCH the 2 variables are related to each others? --> LINEAR MODEL 
+
+model1 <- lm(hm ~ erosion)
+summary(model1)
+abline(model1)
+
+
+####### faPAR vs NDVI model 
+
+library(raster)
+library(rasterdiv)
+install.packages("sf")
+library(sf)
+
+setwd("/Users/sofiaprandelli/lab")
+faPAR10 <- raster("faPAR10.tif")
+
+plot(faPAR10)
+plot(copNDVI)
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA), right=TRUE)
+
+
+library(sf) # to call st_* functions
+random.points <- function(x,n)   # x= raster file; n = points
+{
+lin <- rasterToContour(is.na(x))
+pol <- as(st_union(st_polygonize(st_as_sf(lin))), 'Spatial') # st_union to dissolve geometries
+pts <- spsample(pol[1,], n, type = 'random')
+}
+
+
+pts <- random.points(faPAR10,1000)
+copNDVIp <- extract(copNDVI, pts)
+faPAR10p <- extract(faPAR10,pts)
+
+
+# photosyntesis vs biomass
+model2 <- lm(faPAR10p ~ copNDVIp)
+
+plot(copNDVIp, faPAR10p, col="green", xlab="biomass", ylab="photosynthesis")
+abline(model2, col="red")
+
+
+
+
+
+
+
+
+
+
+
+
+
