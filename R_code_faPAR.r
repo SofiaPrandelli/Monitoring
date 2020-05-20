@@ -103,15 +103,3 @@ model2 <- lm(faPAR10p ~ copNDVIp)
 plot(copNDVIp, faPAR10p, col="green", xlab="biomass", ylab="photosynthesis")
 abline(model2, col="red")
 
-
-
-
-
-
-
-
-
-
-
-
-
