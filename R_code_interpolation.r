@@ -1,4 +1,5 @@
 # R_code_interpolation.r
+# measuring datas where they have not been misurated in a field 
 
 setwd("/Users/sofiaprandelli/lab")
 
