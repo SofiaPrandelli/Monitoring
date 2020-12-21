@@ -110,10 +110,12 @@ coordinates(meuse) = ~X+Y          # ~ è tilde
 
 plot(meuse) #it will show the points in a graph 
 
-spplot(meuse, "zinc")
+spplot(meuse, "zinc")  # declare which dataset we want to use and add a variable 
+# the zinc is concentrated in the yellow part (upper part of the graph), numbers in the graph are the measurments (amount of the element)
+
 
 # exercise: plot the spatial amount of copper 
-spplot(meuse, "copper", main="Copper concentration")
+spplot(meuse, "copper", main="Copper concentration") # main = title
 
 # exercise: bubble copper in red 
 bubble(meuse, "copper", main="Copper concentrtion"), col="red")
@@ -128,12 +130,35 @@ bubble(meuse, "copper", main="Copper concentrtion"), col="red")
 # Mac users
 setwd("/Users/yourname/lab/")
 
-covid <- read.table("covid_agg.csv", head=TRUE)
+covid <- read.table("covid_agg.csv", head=TRUE) # second argument means that the first line isn't data, but is just the title 
+                                                # head=TRUE or head=T
+head(covid)
+
+attach(covid)
+plot(country,cases)
+#plot(covid$country, covid$cases)
+
+#this graph doesn't show all the countries, so we have to change type of graph
+plot(country,cases, las=0) #las=0 parallel labels to axes
+plot(country,cases, las=1) #las=1 horizontal labels to axes
+plot(country,cases, las=2) #las=2 perpendicular labels to axes
+plot(country,cases, las=3) #las=3 vertical labels to axes
+
+#decrease the size of the axes label with cex.axis=0.5 
+plot(country,cases, las=3, cex.axis=0.5) 
+
+#plot spatially with ggplot 
+install.packages("ggplot2")
+library(ggplot2)
+data(mpg)
+head(mpg)
+
+#save project
 
 
 
 ################################################################## 4. R_code_point_pattern_analyses.r
-# POINT PATTERN ANALYSIS: DENSITY MAP --> package spatstat: analysing spatial point patterns
+# POINT PATTERN ANALYSIS: DENSITY MAP --> package spatstat: statystical analysis of spatial point pattern
 
 install.packages("spatstat")
 library(spatstat)
@@ -154,7 +179,10 @@ d<-density(covids)
 plot(d) #to show the density graph
 points(covids)
 
+
+
 #--- 08/04/2020
+
 setws("C:/lab/") #windows
 load("point_pattern.RData")
 ls()
@@ -176,7 +204,7 @@ points(covids)
 plot(coastline, add=T)
 
 # Change the colour and make the graph beautiful
-cl <- colorRampPalette (c("yellow","orange","red"))(100) #color scheme :series of colors
+cl <- colorRampPalette (c("yellow","orange","red"))(100) #color scheme: series of colors
                                                          #100 colors between yellow to red (range of colors)
 plot(d, col=clr, main="Densities of covid-19") #title of the map
 plot(d,col=cl)
@@ -193,7 +221,7 @@ plot(coastlines, add=T)
 # export graph
 pdf("covid_density.pdf")  # or png ()
 
-# we nee to copy all the functions used to define the plot
+# we need to copy all the functions used to define the plot
 cl <- colorRampPalette (c("yellow","orange","red"))(100)
 plot(d, col=clr, main="Densities of covid-19")
 plot(d,col=cl)
@@ -205,10 +233,11 @@ dev.off () #dev=device
 ################################################################## 5. R_code_multivariate.r
 # R code for multivariate analysis 
 
-setwd("/Users/sofiaprandelli/lab")
 
-install.packages("vegan")
+install.packages("vegan") # community ecology package
 library(vegan)
+
+setwd("/Users/sofiaprandelli/lab")
 
 #import the two tables from IOL: biomes and biomes_types (from Chrome, not Safari) 
 biomes <- read.table("biomes.csv", header=T, sep=",") #in the biomes there is an header (so T=true) values are separated by coma
@@ -278,6 +307,7 @@ par(mfrow=c(2,1))
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
 
+#DVI= NIR - RED --> stressed plants have very low value of difference vegetation index
 
 # plotRGB
 #band of Landsat
@@ -303,7 +333,7 @@ plot(dvi1988,col=cl)
 
 
  # DIFFERENCE BETWEEN DVI 1988 AND DVI 2011
-diff <- dvi2011 - dvi1988
+diff <- dvi2011 - dvi1988 
 plot(diff)
 
 # changing the grain of the image!
@@ -317,10 +347,10 @@ plotRGB(p224r63_2011res, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011res100, r=4, g=3, b=2, stretch="Lin")
 
 p224r63_2011 # per vedere tutte le caratteristiche di un'immagine: es. riga 3--> risoluzione 30metriX30metri
-#capire cosa è utile e cosa no dal punto di vista ecologico
+# capire cosa è utile e cosa no dal punto di vista ecologico
 # la risoluzione può essere anche data da un problema economico 
 # spostamento di una popolazione--> very high resolution data
-# monitoring forest changes and not instereste in small changes --> medium resolution data
+# monitoring forest changes and not interest in small changes --> medium resolution data
 # global changes analysis --> pixel of 1 km can be good 
 # high amount of datas can produce a lot of noise, so high resolution is not always useful!
 
