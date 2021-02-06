@@ -1149,5 +1149,14 @@ plot(s1, col=cl)
 
 ################################################################## 18. R_code_final_project
 
+# LNU Lightning Complex fires - California
+# Beginning of August 2020: normal situation and vegetation cover
+setwd("/Users/sofiaprandelli/lab")
+library(raster) 
+
+
+
+
+
 
 
