@@ -1150,9 +1150,19 @@ plot(s1, col=cl)
 ################################################################## 18. R_code_final_project
 
 # LNU Lightning Complex fires - California
+
 # Beginning of August 2020: normal situation and vegetation cover
-setwd("/Users/sofiaprandelli/lab")
+setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
+rlist20200807 <- list.files(pattern="20200807")
+rlist20200807
+# B02 Blue --> Band 1
+# BO3 Green --> Band 2
+# B04 Red --> Band 3
+# B08A Vegetation Red Edge --> Band 4
+# B11 SWIR --> Band 5
+
+
 
 
 
