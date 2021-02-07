@@ -1152,15 +1152,19 @@ plot(s1, col=cl)
 # LNU Lightning Complex fires - California
 
 # Beginning of August 2020: normal situation and vegetation cover
+
 setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
 rlist20200807 <- list.files(pattern="20200807")
 rlist20200807
-# B02 Blue --> Band 1
-# BO3 Green --> Band 2
-# B04 Red --> Band 3
-# B08A Vegetation Red Edge --> Band 4
-# B11 SWIR --> Band 5
+# B02 Blue -> Band 1
+# BO3 Green -> Band 2
+# B04 Red -> Band 3
+# B08A Vegetation Red Edge -> Band 4          #B08 (NIR) -> band 4
+# B11 SWIR -> Band 5
+# applying the raster function to every single layer using Lapply function
+import20200807 <- lapply(rlist20200807, raster)
+
 
 
 
