@@ -1155,19 +1155,27 @@ plot(s1, col=cl)
 
 setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
+
+library(rgdal)
+gdal_translate("image_band_name.jp2", "new_band_name.tif")
+band1 <- readGDAL("new_band_name.tif")
+
+###########
+
 rlist20200807 <- list.files(pattern="20200807")
 rlist20200807
 # B02 Blue -> Band 1
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
-# B08A Vegetation Red Edge -> Band 4          #B08 (NIR) -> band 4
+# B08A Vegetation Red Edge -> Band 4
 # B11 SWIR -> Band 5
+
 # applying the raster function to every single layer using Lapply function
-import20200807 <- lapply(rlist20200807, raster)
+import20200807 <- lapply(rlist20200807,raster)
 
-
-
-
+# I can make the analyses because resolutions of all the bands is the same 
+beforelnu <- stack(import20200807)
+plot(Beforelnu)
 
 
 
