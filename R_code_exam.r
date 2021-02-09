@@ -1156,11 +1156,32 @@ plot(s1, col=cl)
 setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
 
+###################
 library(rgdal)
-gdal_translate("image_band_name.jp2", "new_band_name.tif")
-band1 <- readGDAL("new_band_name.tif")
+gdal_translate("T10SEH_20200807T184919_B02_20m.jp2", "T10SEH_20200807T184919_B02_20m.tif")
+band1 <- readGDAL("T10SEH_20200807T184919_B02_20m.tif")
 
-###########
+gdal_translate("T10SEH_20200807T184919_B03_20m.jp2", "T10SEH_20200807T184919_B03_20m.tif")
+band2 <- readGDAL("T10SEH_20200807T184919_B03_20m.tif")
+
+gdal_translate("T10SEH_20200807T184919_B04_20m.jp2", "T10SEH_20200807T184919_B04_20m.tif")
+band3 <- readGDAL("T10SEH_20200807T184919_B04_20m.tif")
+
+gdal_translate("T10SEH_20200807T184919_B8A_20m.jp2", "T10SEH_20200807T184919_B8A_20m.tif")
+band4 <- readGDAL("T10SEH_20200807T184919_B8A_20m.tif")
+
+gdal_translate("T10SEH_20200807T184919_B11_20m.jp2", "T10SEH_20200807T184919_B11_20m.tif")
+band5 <- readGDAL("T10SEH_20200807T184919_B11_20m.tif")
+
+##############
+
+raster <- readGDAL('T10SEH_20200807T184919_B02_20m.jp2')
+
+
+
+
+
+##############
 
 rlist20200807 <- list.files(pattern="20200807")
 rlist20200807
