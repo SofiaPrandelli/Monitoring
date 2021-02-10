@@ -1152,7 +1152,6 @@ plot(s1, col=cl)
 
 # I used Onda Dias for te database and Sentinel2 for the analysis
 
-####### Beginning of August 2020: normal situation and vegetation cover
 setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
 
@@ -1176,13 +1175,11 @@ rlist20200807
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
 # B11 SWIR -> Band 4
-# B08 NIR -> Band 5 
+# B08A Vegetation Red Edge -> Band 5 
 
+# I can start the analyses because the resolution of all the bands is the same (20 m)
 
-# I cannot do the analyses because Band 08 has a resolution of 10 m while all the others have a 20 m resolution
-KI08122019_panchrom <- resample(KI08122019_panchrom, KI08122019_swir)
-# Now the resolution of all the bands is the same (20 m); I can start the analyses
-
+####### Beginning of August 2020: normal situation and vegetation cover
 # Applying the raster function to every single layer using Lapply function
 import20200807 <- lapply(rlist20200807,raster)
 
@@ -1192,19 +1189,17 @@ plot(beforeLNU)
 # Showing the park in human eye colors
 plotRGB(beforeLNU, r=3, g=2, b=1, stretch="lin")
 
-# Near Infra Red analysis: vegetation underlined in red
+# Vegetation Red Edge analysis: vegetation underlined in red
 plotRGB(beforeLNU, r=5, g=3, b=2, stretch="lin")
 
-
 ###### Beginning of the fires: August 17th 2020
-
 rlist20200822 <- list.files(pattern="20200822")
 rlist20200822
 # B02 Blue -> Band 1
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
-# B08A Vegetation Red Edge -> Band 4
-# B11 SWIR -> Band 5
+# B11 SWIR -> Band 4
+# B08A Vegetation Red Edge -> Band 5
 
 # Applying the raster function to every single layer using Lapply function
 import20200822 <- lapply(rlist20200822,raster)
@@ -1216,21 +1211,20 @@ plot(august17)
 # Showing the park in human eye colors
 plotRGB(august17, r=3, g=2, b=1, stretch="lin")
 
-# Near Infra Red analysis: vegetation underlined in red
-plotRGB(august17, r=4, g=3, b=2, stretch="lin")
-
+# Vegetation Red Edge analysis: vegetation underlined in red
+plotRGB(august17, r=5, g=3, b=2, stretch="lin")
 
 ###### : October 11th 2020
-# In September, fire activity decreased significantly within the complex.
-# By mid-September, only the Hennessey and Walbridge Fires were still burning within the complex. 
-# On October 2, CAL FIRE reported that the entire complex had been extinguished
+# In September, fire activity decreased significantly within the complex
+# By mid-September, only the Hennessey and Walbridge Fires were still burning
+# On October 2nd, CAL FIRE reported that the entire complex had been extinguished
 rlist20201011 <- list.files(pattern="20201011")
 rlist20201011
 # B02 Blue -> Band 1
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
-# B08A Vegetation Red Edge -> Band 4
-# B11 SWIR -> Band 5
+# B11 SWIR -> Band 4
+# B08A Vegetation Red Edge -> Band 5
 
 # Applying the raster function to every single layer using Lapply function
 import20201011 <- lapply(rlist20201011,raster)
@@ -1242,7 +1236,7 @@ plot(october11 )
 # Showing the park in human eye colors
 plotRGB(october11 , r=3, g=2, b=1, stretch="lin")
 
-# Near Infra Red analysis: vegetation underlined in red
+# Vegetation Red Edge analysis: vegetation underlined in red
 plotRGB(october11 , r=4, g=3, b=2, stretch="lin")
 
 ###### January 9th 2021: after 3 months the end of LNU
@@ -1251,8 +1245,8 @@ rlist20210109
 # B02 Blue -> Band 1
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
-# B08A Vegetation Red Edge -> Band 4
-# B11 SWIR -> Band 5
+# B11 SWIR -> Band 4
+# B08A Vegetation Red Edge -> Band 5
 
 # Applying the raster function to every single layer using Lapply function
 import20210109 <- lapply(rlist20210109,raster)
@@ -1264,9 +1258,43 @@ plot(january9)
 # Showing the park in human eye colors
 plotRGB(january9, r=3, g=2, b=1, stretch="lin")
 
-# Near Infra Red analysis: vegetation underlined in red
+# Vegetation Red Edge analysis: vegetation underlined in red
 plotRGB(january9, r=4, g=3, b=2, stretch="lin")
 
+
+# Now we uploaded all our data on R so let's compare all the picture together to see how much the vegetation changed in 3 years                   
+
+# Human eye analysis showing the differences from August 2017 to July 2020                   
+par(mfrow=c(1,4)) 
+plotRGB(beforeLNU, r=3, g=2, b=1, stretch="lin", main="06/08/2017", axes = TRUE)  #06/08/2017
+plotRGB(august17, r=3, g=2, b=1, stretch="lin", main="02/07/2018", axes = TRUE)  #02/07/2018
+plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="27/06/2019", axes = TRUE)  #27/06/2019 
+plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020  
+
+# Vegetation Red Edge analysis showing the differences from August 2017 to July 2020                   
+par(mfrow=c(1,4)) 
+plotRGB(beforeLNU, r=5, g=3, b=2, stretch="lin", main="06/08/2017", axes = TRUE)  #06/08/2017
+plotRGB(august17, r=5, g=3, b=2, stretch="lin", main="02/07/2018", axes = TRUE)  #02/07/2018
+plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="27/06/2019", axes = TRUE)  #27/06/2019 
+plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020  
+
+# Burnt area analysis showing the differences from August 2017 to July 2020                   
+par(mfrow=c(1,4)) 
+plotRGB(beforeLNU, r=4, g=5, b=3, stretch="lin", main="Burnt area 06/08/2017", axes = TRUE)  #06/08/2017
+plotRGB(august17, r=4, g=5, b=3, stretch="lin", main="Burnt area 02/07/2018", axes = TRUE)  #02/07/2018
+plotRGB(october11, r=4, g=5, b=3, stretch="lin", main="Burnt area 27/06/2019", axes = TRUE)  #27/06/2019 
+plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 01/07/2020", axes = TRUE) #01/07/2020
+
+# Differences between May 2017 and July 2020 
+# Human eye                       
+par(mfrow=c(1,2))                    
+plotRGB(ves20170517, r=3, g=2, b=1, stretch="lin", main="17/05/2017", axes = TRUE) #17/05/2017              
+plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020 
+
+# Vegetation Red Edge
+par(mfrow=c(1,2))                    
+plotRGB(ves20170517, r=5, g=3, b=2, stretch="lin", main="17/05/2017", axes = TRUE) #17/05/2017              
+plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020  
 
 
 
