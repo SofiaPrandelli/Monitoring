@@ -1155,19 +1155,19 @@ plot(s1, col=cl)
 setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
 
-# trying to convert all the jp2 files in Tiff format: 
-library(rgdal)
-gdal_translate("T10SEH_20200807T184919_B02_20m.jp2", "T10SEH_20200807T184919_B02_20m.tif")
-band1 <- readGDAL("T10SEH_20200807T184919_B02_20m.tif")
-gdal_translate("T10SEH_20200807T184919_B03_20m.jp2", "T10SEH_20200807T184919_B03_20m.tif")
-band2 <- readGDAL("T10SEH_20200807T184919_B03_20m.tif")
-gdal_translate("T10SEH_20200807T184919_B04_20m.jp2", "T10SEH_20200807T184919_B04_20m.tif")
-band3 <- readGDAL("T10SEH_20200807T184919_B04_20m.tif")
-gdal_translate("T10SEH_20200807T184919_B8A_20m.jp2", "T10SEH_20200807T184919_B8A_20m.tif")
-band4 <- readGDAL("T10SEH_20200807T184919_B8A_20m.tif")
-gdal_translate("T10SEH_20200807T184919_B11_20m.jp2", "T10SEH_20200807T184919_B11_20m.tif")
-band5 <- readGDAL("T10SEH_20200807T184919_B11_20m.tif")
-# It doesn't work, I try to convert the files with QGis, using the translate function (in Raster): it works!
+    # trying to convert all the jp2 files in Tiff format: 
+    library(rgdal)
+    gdal_translate("T10SEH_20200807T184919_B02_20m.jp2", "T10SEH_20200807T184919_B02_20m.tif")
+    band1 <- readGDAL("T10SEH_20200807T184919_B02_20m.tif")
+    gdal_translate("T10SEH_20200807T184919_B03_20m.jp2", "T10SEH_20200807T184919_B03_20m.tif")
+    band2 <- readGDAL("T10SEH_20200807T184919_B03_20m.tif")
+    gdal_translate("T10SEH_20200807T184919_B04_20m.jp2", "T10SEH_20200807T184919_B04_20m.tif")
+    band3 <- readGDAL("T10SEH_20200807T184919_B04_20m.tif")
+    gdal_translate("T10SEH_20200807T184919_B8A_20m.jp2", "T10SEH_20200807T184919_B8A_20m.tif")
+    band4 <- readGDAL("T10SEH_20200807T184919_B8A_20m.tif")
+    gdal_translate("T10SEH_20200807T184919_B11_20m.jp2", "T10SEH_20200807T184919_B11_20m.tif")
+    band5 <- readGDAL("T10SEH_20200807T184919_B11_20m.tif")
+    # It doesn't work, I try to convert the files with QGis, using the translate function (in Raster): it works!
 
 rlist20200807 <- list.files(pattern="20200807")
 rlist20200807
@@ -1214,10 +1214,10 @@ plotRGB(august17, r=3, g=2, b=1, stretch="lin")
 # Vegetation Red Edge analysis: vegetation underlined in red
 plotRGB(august17, r=5, g=3, b=2, stretch="lin")
 
-###### : October 11th 2020
-# In September, fire activity decreased significantly within the complex
-# By mid-September, only the Hennessey and Walbridge Fires were still burning
-# On October 2nd, CAL FIRE reported that the entire complex had been extinguished
+###### End of the fires: October 11th 2020
+      # In September, fire activity decreased significantly within the complex
+      # By mid-September, only the Hennessey and Walbridge Fires were still burning
+      # On October 2nd, CAL FIRE reported that the entire complex had been extinguished
 rlist20201011 <- list.files(pattern="20201011")
 rlist20201011
 # B02 Blue -> Band 1
@@ -1231,13 +1231,13 @@ import20201011 <- lapply(rlist20201011,raster)
 
 # I can make the analyses because resolutions of all the bands are the same (20 m)
 october11 <- stack(import20201011)
-plot(october11 )
+plot(october11)
 
 # Showing the park in human eye colors
-plotRGB(october11 , r=3, g=2, b=1, stretch="lin")
+plotRGB(october11, r=3, g=2, b=1, stretch="lin")
 
 # Vegetation Red Edge analysis: vegetation underlined in red
-plotRGB(october11 , r=4, g=3, b=2, stretch="lin")
+plotRGB(october11, r=4, g=3, b=2, stretch="lin")
 
 ###### January 9th 2021: after 3 months the end of LNU
 rlist20210109 <- list.files(pattern="20210109")
@@ -1296,6 +1296,28 @@ plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 09/01/2021", ax
     plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)          
     plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE)
 
+
+###### NDVI calculation: NIR - RED / NIR + RED
+
+# Names: to see the order of the bands
+names(May)
+names(June)
+names(July)
+
+# Maremma NDVI 
+ndviMay <- (May$T32TPN_20200523T100559_B08 - May$T32TPN_20200523T100559_B04) 
+/ (May$T32TPN_20200523T100559_B08 + May$T32TPN_20200523T100559_B04)
+ndviJune <- (June$T32TPN_20200622T100559_B8A_20m - June$T32TPN_20200622T100559_B04_20m) 
+/ (June$T32TPN_20200622T100559_B8A_20m + June$T32TPN_20200622T100559_B04_20m)
+ndviJuly <- (July$T32TPN_20200707T101031_B8A_20m - July$T32TPN_20200707T101031_B04_20m) 
+/ (July$T32TPN_20200707T101031_B8A_20m + July$T32TPN_20200707T101031_B04_20m)
+bind <- reclassify(ndviMay, cbind(253:255, NA))
+# Plot NDVI
+clNDVI = colorRampPalette(c("darkblue","yellow","red","black"))(100)
+par(mfrow=c(1,3))
+plot(ndviMay, col = clNDVI, main = "23.05.2020")
+plot(ndviJune, col = clNDVI, main = "22.06.2020")
+plot(ndviJuly, col = clNDVI, main = "07.07.2020")
 
 
 
