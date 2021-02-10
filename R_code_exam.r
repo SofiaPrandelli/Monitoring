@@ -1222,9 +1222,9 @@ plotRGB(august17, r=4, g=3, b=2, stretch="lin")
 
 
 ###### : October 11th 2020
-# In September, fire activity decreased significantly within the complex, as firefighters brought most of the fire complex under control. 
+# In September, fire activity decreased significantly within the complex.
 # By mid-September, only the Hennessey and Walbridge Fires were still burning within the complex. 
-# On October 2, 2020, CAL FIRE reported that the entire complex had been extinguished
+# On October 2, CAL FIRE reported that the entire complex had been extinguished
 rlist20200822 <- list.files(pattern="20200822")
 rlist20200822
 # B02 Blue -> Band 1
