@@ -1262,39 +1262,45 @@ plotRGB(january9, r=3, g=2, b=1, stretch="lin")
 plotRGB(january9, r=4, g=3, b=2, stretch="lin")
 
 
-# Now we uploaded all our data on R so let's compare all the picture together to see how much the vegetation changed in 3 years                   
+# Now I can compare all the pictures to see how much the vegetation changed:                  
 
-# Human eye analysis showing the differences from August 2017 to July 2020                   
+# Human eye analysis showing the differences from August 2020 to January 2021
+# Par function: in order to make a multiframe of different plots
+par(mfrow=c(1,4))
+plotRGB(beforeLNU, r=3, g=2, b=1, stretch="lin", main="07/08/2020", axes = TRUE)
+plotRGB(august17, r=3, g=2, b=1, stretch="lin", main="17/08/2020", axes = TRUE)
+plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="11/10/2020", axes = TRUE) 
+plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="09/01/2021", axes = TRUE) 
+
+# Vegetation Red Edge analysis showing the differences from August 2020 to January 2021        
 par(mfrow=c(1,4)) 
-plotRGB(beforeLNU, r=3, g=2, b=1, stretch="lin", main="06/08/2017", axes = TRUE)  #06/08/2017
-plotRGB(august17, r=3, g=2, b=1, stretch="lin", main="02/07/2018", axes = TRUE)  #02/07/2018
-plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="27/06/2019", axes = TRUE)  #27/06/2019 
-plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020  
+plotRGB(beforeLNU, r=5, g=3, b=2, stretch="lin", main="07/08/2020", axes = TRUE)
+plotRGB(august17, r=5, g=3, b=2, stretch="lin", main="17/08/2020", axes = TRUE)
+plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)
+plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE) 
 
-# Vegetation Red Edge analysis showing the differences from August 2017 to July 2020                   
-par(mfrow=c(1,4)) 
-plotRGB(beforeLNU, r=5, g=3, b=2, stretch="lin", main="06/08/2017", axes = TRUE)  #06/08/2017
-plotRGB(august17, r=5, g=3, b=2, stretch="lin", main="02/07/2018", axes = TRUE)  #02/07/2018
-plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="27/06/2019", axes = TRUE)  #27/06/2019 
-plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020  
+# Burnt area analysis showing the differences from from August 2020 to January 2021
+plotRGB(beforeLNU, r=4, g=5, b=3, stretch="lin", main="Burnt area 07/08/2020", axes = TRUE)
+plotRGB(august17, r=4, g=5, b=3, stretch="lin", main="Burnt area 17/08/2020", axes = TRUE)
+plotRGB(october11, r=4, g=5, b=3, stretch="lin", main="Burnt area 11/10/2020", axes = TRUE)
+plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 09/01/2021", axes = TRUE)
 
-# Burnt area analysis showing the differences from August 2017 to July 2020                   
-par(mfrow=c(1,4)) 
-plotRGB(beforeLNU, r=4, g=5, b=3, stretch="lin", main="Burnt area 06/08/2017", axes = TRUE)  #06/08/2017
-plotRGB(august17, r=4, g=5, b=3, stretch="lin", main="Burnt area 02/07/2018", axes = TRUE)  #02/07/2018
-plotRGB(october11, r=4, g=5, b=3, stretch="lin", main="Burnt area 27/06/2019", axes = TRUE)  #27/06/2019 
-plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 01/07/2020", axes = TRUE) #01/07/2020
+# Differences between shortly after the end of the fires and after 3 months the end of the fires:
+    # Human eye analysis           
+    par(mfrow=c(1,2))                    
+    plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="11/10/2020", axes = TRUE)            
+    plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="09/01/2021", axes = TRUE)
 
-# Differences between May 2017 and July 2020 
-# Human eye                       
-par(mfrow=c(1,2))                    
-plotRGB(ves20170517, r=3, g=2, b=1, stretch="lin", main="17/05/2017", axes = TRUE) #17/05/2017              
-plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020 
+    # Vegetation Red Edge analysis
+    par(mfrow=c(1,2))                    
+    plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)          
+    plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE)
 
-# Vegetation Red Edge
-par(mfrow=c(1,2))                    
-plotRGB(ves20170517, r=5, g=3, b=2, stretch="lin", main="17/05/2017", axes = TRUE) #17/05/2017              
-plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="01/07/2020", axes = TRUE) #01/07/2020  
+
+
+
+
+
 
 
 
