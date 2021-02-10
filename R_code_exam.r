@@ -1160,19 +1160,14 @@ library(raster)
 library(rgdal)
 gdal_translate("T10SEH_20200807T184919_B02_20m.jp2", "T10SEH_20200807T184919_B02_20m.tif")
 band1 <- readGDAL("T10SEH_20200807T184919_B02_20m.tif")
-
 gdal_translate("T10SEH_20200807T184919_B03_20m.jp2", "T10SEH_20200807T184919_B03_20m.tif")
 band2 <- readGDAL("T10SEH_20200807T184919_B03_20m.tif")
-
 gdal_translate("T10SEH_20200807T184919_B04_20m.jp2", "T10SEH_20200807T184919_B04_20m.tif")
 band3 <- readGDAL("T10SEH_20200807T184919_B04_20m.tif")
-
 gdal_translate("T10SEH_20200807T184919_B8A_20m.jp2", "T10SEH_20200807T184919_B8A_20m.tif")
 band4 <- readGDAL("T10SEH_20200807T184919_B8A_20m.tif")
-
 gdal_translate("T10SEH_20200807T184919_B11_20m.jp2", "T10SEH_20200807T184919_B11_20m.tif")
 band5 <- readGDAL("T10SEH_20200807T184919_B11_20m.tif")
-
 # It doesn't work, I try to convert the files with QGis, using the translate function (in Raster): it works!
 
 rlist20200807 <- list.files(pattern="20200807")
@@ -1181,12 +1176,16 @@ rlist20200807
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
 # B11 SWIR -> Band 4
-# B08A Vegetation Red Edge -> Band 5 
+# B08 NIR -> Band 5 
+
+
+# I cannot do the analyses because Band 08 has a resolution of 10 m while all the others have a 20 m resolution
+KI08122019_panchrom <- resample(KI08122019_panchrom, KI08122019_swir)
+# Now the resolution of all the bands is the same (20 m); I can start the analyses
 
 # Applying the raster function to every single layer using Lapply function
 import20200807 <- lapply(rlist20200807,raster)
 
-# I can make the analyses because resolutions of all the bands are the same (20 m)
 beforeLNU <- stack(import20200807)
 plot(beforeLNU)
 
@@ -1225,8 +1224,8 @@ plotRGB(august17, r=4, g=3, b=2, stretch="lin")
 # In September, fire activity decreased significantly within the complex.
 # By mid-September, only the Hennessey and Walbridge Fires were still burning within the complex. 
 # On October 2, CAL FIRE reported that the entire complex had been extinguished
-rlist20200822 <- list.files(pattern="20200822")
-rlist20200822
+rlist20201011 <- list.files(pattern="20201011")
+rlist20201011
 # B02 Blue -> Band 1
 # BO3 Green -> Band 2
 # B04 Red -> Band 3
@@ -1234,19 +1233,39 @@ rlist20200822
 # B11 SWIR -> Band 5
 
 # Applying the raster function to every single layer using Lapply function
-import20200822 <- lapply(rlist20200822,raster)
+import20201011 <- lapply(rlist20201011,raster)
 
 # I can make the analyses because resolutions of all the bands are the same (20 m)
-august17 <- stack(import20200822)
-plot(august17)
+october11 <- stack(import20201011)
+plot(october11 )
 
 # Showing the park in human eye colors
-plotRGB(august17, r=3, g=2, b=1, stretch="lin")
+plotRGB(october11 , r=3, g=2, b=1, stretch="lin")
 
 # Near Infra Red analysis: vegetation underlined in red
-plotRGB(august17, r=4, g=3, b=2, stretch="lin")
+plotRGB(october11 , r=4, g=3, b=2, stretch="lin")
 
+###### January 9th 2021: after 3 months the end of LNU
+rlist20210109 <- list.files(pattern="20210109")
+rlist20210109
+# B02 Blue -> Band 1
+# BO3 Green -> Band 2
+# B04 Red -> Band 3
+# B08A Vegetation Red Edge -> Band 4
+# B11 SWIR -> Band 5
 
+# Applying the raster function to every single layer using Lapply function
+import20210109 <- lapply(rlist20210109,raster)
+
+# I can make the analyses because resolutions of all the bands are the same (20 m)
+january9 <- stack(import20210109)
+plot(january9)
+
+# Showing the park in human eye colors
+plotRGB(january9, r=3, g=2, b=1, stretch="lin")
+
+# Near Infra Red analysis: vegetation underlined in red
+plotRGB(january9, r=4, g=3, b=2, stretch="lin")
 
 
 
