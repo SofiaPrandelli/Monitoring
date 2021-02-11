@@ -1237,7 +1237,7 @@ plot(october11)
 plotRGB(october11, r=3, g=2, b=1, stretch="lin")
 
 # Vegetation Red Edge analysis: vegetation underlined in red
-plotRGB(october11, r=4, g=3, b=2, stretch="lin")
+plotRGB(october11, r=5, g=3, b=2, stretch="lin")
 
 ###### January 9th 2021: after 3 months the end of LNU
 rlist20210109 <- list.files(pattern="20210109")
@@ -1259,7 +1259,7 @@ plot(january9)
 plotRGB(january9, r=3, g=2, b=1, stretch="lin")
 
 # Vegetation Red Edge analysis: vegetation underlined in red
-plotRGB(january9, r=4, g=3, b=2, stretch="lin")
+plotRGB(january9, r=5, g=3, b=2, stretch="lin")
 
 
 # Now I can compare all the pictures to see how much the vegetation changed:                  
@@ -1297,27 +1297,41 @@ plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 09/01/2021", ax
     plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE)
 
 
-###### NDVI calculation: NIR - RED / NIR + RED
+###### NDVI calculation: Normalized Difference Vegetation Index
+       # NIR - RED / NIR + RED 
+       # Using Vegetation Red Edge instead of Infra Red
 
-# Names: to see the order of the bands
-names(May)
-names(June)
-names(July)
+ndvibeforeLNU <- (beforeLNU$T10SEH_20200807T184919_B8A_20m - beforeLNU$T10SEH_20200807T184919_B04_20m) 
+/ (beforeLNU$T10SEH_20200807T184919_B8A_20m + T10SEH_20200807T184919_B04_20m)
 
-# Maremma NDVI 
-ndviMay <- (May$T32TPN_20200523T100559_B08 - May$T32TPN_20200523T100559_B04) 
-/ (May$T32TPN_20200523T100559_B08 + May$T32TPN_20200523T100559_B04)
-ndviJune <- (June$T32TPN_20200622T100559_B8A_20m - June$T32TPN_20200622T100559_B04_20m) 
-/ (June$T32TPN_20200622T100559_B8A_20m + June$T32TPN_20200622T100559_B04_20m)
-ndviJuly <- (July$T32TPN_20200707T101031_B8A_20m - July$T32TPN_20200707T101031_B04_20m) 
-/ (July$T32TPN_20200707T101031_B8A_20m + July$T32TPN_20200707T101031_B04_20m)
-bind <- reclassify(ndviMay, cbind(253:255, NA))
-# Plot NDVI
-clNDVI = colorRampPalette(c("darkblue","yellow","red","black"))(100)
-par(mfrow=c(1,3))
-plot(ndviMay, col = clNDVI, main = "23.05.2020")
-plot(ndviJune, col = clNDVI, main = "22.06.2020")
-plot(ndviJuly, col = clNDVI, main = "07.07.2020")
+ndviAugust <- (august17$T10SEH_20200822T184921_B8A_20m - august17$T10SEH_20200822T184921_B04_20m) 
+/ (august17$T10SEH_20200822T184921_B8A_20m + august17$T10SEH_20200822T184921_B04_20m)
+
+ndviOctober <- (october11$T10SEH_20201011T185321_B8A_20m - october11$T10SEH_20201011T185321_B04_20m) 
+/ (october11$T10SEH_20201011T185321_B8A_20m + october11$T10SEH_20201011T185321_B04_20m)
+
+ndviJanuary <- (january9$T10SEH_20210109T185751_B8A_20m - january9$T10SEH_20210109T185751_B04_20m) 
+/ (january9$T10SEH_20210109T185751_B8A_20m + T10SEH_20210109T185751_B04_20m)
+
+
+# Plotting NDVI
+clNDVI = colorRampPalette(c("darkblue","yellow","red","black"))(100) 
+# clNDVI = colorRampPalette(c("blue", "white", "red"))(256) # Plot the NDVI as a false-color image
+
+par(mfrow=c(1,4))
+plot(ndvibeforeLNU, col = clNDVI, main = "07/08/2020")
+plot(ndviAugust, col = clNDVI, main = "22/08/2020")
+plot(ndviOctober, col = clNDVI, main = "11/10/2020")
+plot(ndviJanuary, col = clNDVI, main = "09/01/2021")
+
+
+
+#NDVI range is between -1 and +1
+#hist(ndvi7, maxpixels = ncell(ndvi1))
+#i see where to focus the range of colours to better enhance it
+breaks <- seq(-0.4, 0.4, 0.1)
+palette <- colorRampPalette(c("blue", "white", "red"))(8)
+plot(ndvi7, breaks=breaks, col=palette)
 
 
 
