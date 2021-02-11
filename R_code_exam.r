@@ -1269,8 +1269,8 @@ plotRGB(january9, r=5, g=3, b=2, stretch="lin")
 par(mfrow=c(1,4))
 plotRGB(beforeLNU, r=3, g=2, b=1, stretch="lin", main="07/08/2020", axes = TRUE)
 plotRGB(august17, r=3, g=2, b=1, stretch="lin", main="17/08/2020", axes = TRUE)
-plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="11/10/2020", axes = TRUE) 
-plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="09/01/2021", axes = TRUE) 
+plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="11/10/2020", axes = TRUE)
+plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="09/01/2021", axes = TRUE)
 
 # Vegetation Red Edge analysis showing the differences from August 2020 to January 2021        
 par(mfrow=c(1,4)) 
@@ -1280,6 +1280,7 @@ plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)
 plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE) 
 
 # Burnt area analysis showing the differences from August 2020 to January 2021
+     # vegetation in green and burnt area in natural colors
 plotRGB(beforeLNU, r=4, g=5, b=3, stretch="lin", main="Burnt area 07/08/2020", axes = TRUE)
 plotRGB(august17, r=4, g=5, b=3, stretch="lin", main="Burnt area 17/08/2020", axes = TRUE)
 plotRGB(october11, r=4, g=5, b=3, stretch="lin", main="Burnt area 11/10/2020", axes = TRUE)
@@ -1288,12 +1289,12 @@ plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 09/01/2021", ax
 # Differences between shortly after the end of the fires and after 3 months the end of the fires:
     # Human eye analysis           
     par(mfrow=c(1,2))                    
-    plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="11/10/2020", axes = TRUE)            
+    plotRGB(october11, r=3, g=2, b=1, stretch="lin", main="11/10/2020", axes = TRUE)
     plotRGB(january9, r=3, g=2, b=1, stretch="lin", main="09/01/2021", axes = TRUE)
 
     # Vegetation Red Edge analysis
-    par(mfrow=c(1,2))                    
-    plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)          
+    par(mfrow=c(1,2))
+    plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)
     plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE)
 
 
@@ -1301,43 +1302,27 @@ plotRGB(january9, r=4, g=5, b=3, stretch="lin", main="Burnt area 09/01/2021", ax
        # NIR - RED / NIR + RED 
        # Using Vegetation Red Edge instead of Infra Red
 
-ndvibeforeLNU <- (beforeLNU$T10SEH_20200807T184919_B8A_20m - beforeLNU$T10SEH_20200807T184919_B04_20m) 
-/ (beforeLNU$T10SEH_20200807T184919_B8A_20m + T10SEH_20200807T184919_B04_20m)
-
-ndviAugust <- (august17$T10SEH_20200822T184921_B8A_20m - august17$T10SEH_20200822T184921_B04_20m) 
-/ (august17$T10SEH_20200822T184921_B8A_20m + august17$T10SEH_20200822T184921_B04_20m)
-
-ndviOctober <- (october11$T10SEH_20201011T185321_B8A_20m - october11$T10SEH_20201011T185321_B04_20m) 
-/ (october11$T10SEH_20201011T185321_B8A_20m + october11$T10SEH_20201011T185321_B04_20m)
-
-ndviJanuary <- (january9$T10SEH_20210109T185751_B8A_20m - january9$T10SEH_20210109T185751_B04_20m) 
-/ (january9$T10SEH_20210109T185751_B8A_20m + T10SEH_20210109T185751_B04_20m)
-
+ndvibeforeLNU <- (beforeLNU$T10SEH_20200807T184919_B8A_20m - beforeLNU$T10SEH_20200807T184919_B04_20m) / 
+    (beforeLNU$T10SEH_20200807T184919_B8A_20m + beforeLNU$T10SEH_20200807T184919_B04_20m)
+ndviAugust <- (august17$T10SEH_20200822T184921_B8A_20m - august17$T10SEH_20200822T184921_B04_20m) / 
+    (august17$T10SEH_20200822T184921_B8A_20m + august17$T10SEH_20200822T184921_B04_20m)
+ndviOctober <- (october11$T10SEH_20201011T185321_B8A_20m - october11$T10SEH_20201011T185321_B04_20m) / 
+    (october11$T10SEH_20201011T185321_B8A_20m + october11$T10SEH_20201011T185321_B04_20m)
+ndviJanuary <- (january9$T10SEH_20210109T185751_B8A_20m - january9$T10SEH_20210109T185751_B04_20m) / 
+    (january9$T10SEH_20210109T185751_B8A_20m + january9$T10SEH_20210109T185751_B04_20m)
 
 # Plotting NDVI
 clNDVI = colorRampPalette(c("darkblue","yellow","red","black"))(100) 
-# clNDVI = colorRampPalette(c("blue", "white", "red"))(256) # Plot the NDVI as a false-color image
-
 par(mfrow=c(1,4))
 plot(ndvibeforeLNU, col = clNDVI, main = "07/08/2020")
 plot(ndviAugust, col = clNDVI, main = "22/08/2020")
 plot(ndviOctober, col = clNDVI, main = "11/10/2020")
 plot(ndviJanuary, col = clNDVI, main = "09/01/2021")
 
-
-
-# NDVI range is between -1 and +1
-# hist(ndvi7, maxpixels = ncell(ndvi1))
-# i see where to focus the range of colours to better enhance it
-breaks <- seq(-0.4, 0.4, 0.1)
-palette <- colorRampPalette(c("blue", "white", "red"))(8)
-plot(ndvi7, breaks=breaks, col=palette)
-
-
-
-
-
-
-
-
+clNDVI = colorRampPalette(c("blue", "white", "red"))(256) # Plot the NDVI as a false-color image
+par(mfrow=c(1,4))
+plot(ndvibeforeLNU, col = clNDVI, main = "07/08/2020")
+plot(ndviAugust, col = clNDVI, main = "22/08/2020")
+plot(ndviOctober, col = clNDVI, main = "11/10/2020")
+plot(ndviJanuary, col = clNDVI, main = "09/01/2021")
 
