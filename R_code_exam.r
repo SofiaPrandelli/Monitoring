@@ -1150,7 +1150,7 @@ plot(s1, col=cl)
 ################################################################## 18. R_code_final_project
 # LNU Lightning Complex fires - California
 
-# I used Onda Dias for te database and Sentinel2 for the analysis
+# I used Onda Dias for the database and Sentinel2 for the analysis
 
 setwd("/Users/sofiaprandelli/lab/project")
 library(raster) 
