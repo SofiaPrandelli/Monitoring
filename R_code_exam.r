@@ -1279,7 +1279,7 @@ plotRGB(august17, r=5, g=3, b=2, stretch="lin", main="17/08/2020", axes = TRUE)
 plotRGB(october11, r=5, g=3, b=2, stretch="lin", main="11/10/2020", axes = TRUE)
 plotRGB(january9, r=5, g=3, b=2, stretch="lin", main="09/01/2021", axes = TRUE) 
 
-# Burnt area analysis showing the differences from from August 2020 to January 2021
+# Burnt area analysis showing the differences from August 2020 to January 2021
 plotRGB(beforeLNU, r=4, g=5, b=3, stretch="lin", main="Burnt area 07/08/2020", axes = TRUE)
 plotRGB(august17, r=4, g=5, b=3, stretch="lin", main="Burnt area 17/08/2020", axes = TRUE)
 plotRGB(october11, r=4, g=5, b=3, stretch="lin", main="Burnt area 11/10/2020", axes = TRUE)
@@ -1326,9 +1326,9 @@ plot(ndviJanuary, col = clNDVI, main = "09/01/2021")
 
 
 
-#NDVI range is between -1 and +1
-#hist(ndvi7, maxpixels = ncell(ndvi1))
-#i see where to focus the range of colours to better enhance it
+# NDVI range is between -1 and +1
+# hist(ndvi7, maxpixels = ncell(ndvi1))
+# i see where to focus the range of colours to better enhance it
 breaks <- seq(-0.4, 0.4, 0.1)
 palette <- colorRampPalette(c("blue", "white", "red"))(8)
 plot(ndvi7, breaks=breaks, col=palette)
