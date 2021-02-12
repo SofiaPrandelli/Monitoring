@@ -1180,7 +1180,7 @@ rlist20200807
 # I can start the analyses because the resolution of all the bands is the same (20 m)
 
 ####### Beginning of August 2020: normal situation and vegetation cover
-# Applying the raster function to every single layer using Lapply function
+# Applying the raster function to every single layer using Lapply function: fast method to import and plot in R all the data
 import20200807 <- lapply(rlist20200807,raster)
 
 beforeLNU <- stack(import20200807)
@@ -1319,7 +1319,7 @@ plot(ndviAugust, col = clNDVI, main = "22/08/2020")
 plot(ndviOctober, col = clNDVI, main = "11/10/2020")
 plot(ndviJanuary, col = clNDVI, main = "09/01/2021")
 
-clNDVI = colorRampPalette(c("blue", "white", "red"))(256) # Plot the NDVI as a false-color image
+clNDVI = colorRampPalette(c("blue", "white", "red"))(256)
 par(mfrow=c(1,4))
 plot(ndvibeforeLNU, col = clNDVI, main = "07/08/2020")
 plot(ndviAugust, col = clNDVI, main = "22/08/2020")
